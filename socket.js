@@ -3,6 +3,7 @@ var ws = new WebSocket('ws://192.168.100.116:9999/');
 // WebSocket Connection Opened
 ws.onopen = function() {
   window.addEventListener("deviceorientation", handleOrientation, true);
+  ws.send('7.25')
 };
 
 // Error Occured
