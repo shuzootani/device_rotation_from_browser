@@ -1,13 +1,29 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var ws = new WebSocket('ws://192.168.100.116:9999/');
 
+var leftButton = document.getElementById('left')
+var centerButton = document.getElementById('center')
+var rightButton = document.getElementById('right')
+
+leftButton.onclick = function(e) {
+  sendAngleToServer('12.0')
+}
+
+centerButton.onclick = function(e) {
+  sendAngleToServer('7.25')
+}
+
+rightButton.onclick = function(e) {
+  sendAngleToServer('2.5')
+}
+
+function sendAngleToServer(value) {
+  ws.send(value)
+}
+
 // WebSocket Connection Opened
 ws.onopen = function() {
-  window.addEventListener("deviceorientation", handleOrientation);
-  ws.send('2.5')
-  ws.send('7.25')
-  ws.send('12.0')
-  ws.send('7.25')
+  window.addEventListener("on", handleOrientation);
 };
 
 // Error Occured
@@ -18,7 +34,6 @@ ws.onerror = function (error) {
 // Received from Server
 ws.onmessage = function (e) {
   console.log('from Server: ' + e.data);
-  document.write('from Server: ' + e.data)
 };
 
 ws.onclose = function (e) {
