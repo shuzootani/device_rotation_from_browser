@@ -1,8 +1,13 @@
 var ws = new WebSocket('ws://192.168.100.116:9999/');
+var wsVibes = new WebSocket('ws://192.168.100.116:8888/');
 
 var leftButton = document.getElementById('left')
 var centerButton = document.getElementById('center')
 var rightButton = document.getElementById('right')
+
+document.getElementById('vibes').onclick = function() {
+  wsVibes.send('Vibes !!!')
+}
 
 leftButton.onclick = function(e) {
   sendAngleToServer('12.0')
